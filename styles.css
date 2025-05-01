@@ -4,3 +4,20 @@
 html {
   scroll-behavior: smooth;
 }
+
+.csgTitle {
+  font-size:46px;
+  font-weight: 700;
+  letter-spacing: -2px;
+}
+
+.csgTitle-span {
+  background: linear-gradient(to right, #379bff, #ff4bde, #ffcc00);
+  /* Your gradient colors */
+  -webkit-background-clip: text;
+  /* Clip the background to the text */
+  color: transparent;
+  /* Make the text itself transparent to show the gradient */
+  font-weight: bold;
+  /* Optional: make the text bold */
+}

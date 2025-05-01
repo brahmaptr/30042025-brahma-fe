@@ -8,6 +8,7 @@
 .pageContainer {
   display:flex;
   justify-content: center;
+  padding-bottom: 70px;
 }
 
 .pageContainer-content__item {
@@ -41,4 +42,36 @@
 
 .pageContainer-content__item-desc::first-letter {
   text-transform: capitalize;
+}
+
+.highlight {
+  background: yellow;
+  color: #000;
+  font-weight: bold;
+  padding: 0 5px;
+  margin: 0 2px;
+  font-size: 14px;
+  border-radius:2px;
+}
+
+.highlightSearch {
+  background: rgb(136, 245, 255);
+  color: #000;
+  font-weight: bold;
+  font-size: 14px;
+  border-radius: 2px;
+}
+
+#pagination button {
+  margin: 0 4px;
+  padding: 4px 8px;
+  cursor: pointer;
+  letter-spacing: 2px;
+}
+
+#pagination .active-page {
+  background-color: #007bff;
+  color: white;
+  font-weight: bold;
+  border-radius: 4px;
 }

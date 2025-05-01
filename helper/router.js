@@ -53,8 +53,10 @@ export const router = async () => {
       // -- Load related JS module
     if (path === "/post" || path === "/reports") {
       const mod = await import(`../pages/post/post.js?t=${Date.now()}`);
-      if (typeof mod.post === "function") {
-        mod.post();
+      const postModule = mod.default;
+
+      if (typeof postModule.post === "function") {
+        postModule.post();
       }
     }
 
