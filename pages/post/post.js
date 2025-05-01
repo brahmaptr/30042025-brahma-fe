@@ -12,10 +12,16 @@ export async function post() {
     const fragment = document.createDocumentFragment();
     posts.forEach(post => {
       const li = document.createElement("li");
-      const h3 = document.createElement("h3");
+      li.classList.add("pageContainer-content__item");
+      
+      const h3 = document.createElement("div");
       h3.textContent = post.title;
+      h3.classList.add("pageContainer-content__item-title");
+
       const p = document.createElement("p");
       p.textContent = post.body;
+      p.classList.add("pageContainer-content__item-desc");
+
       li.append(h3, p);
       fragment.appendChild(li);
     });

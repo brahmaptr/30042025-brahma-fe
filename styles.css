@@ -1,1 +1,6 @@
-html {}
+
+@import url("pages/post/post.css");
+
+html {
+  scroll-behavior: smooth;
+}

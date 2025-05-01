@@ -1,0 +1,44 @@
+:root {
+  --csg-card: #262626;
+  --csg-card-hover: linear-gradient(to right, #001f3d, #003b63, #005780);
+  --csg-card-outline: #585858;
+
+}
+
+.pageContainer {
+  display:flex;
+  justify-content: center;
+}
+
+.pageContainer-content__item {
+  background-color: var(--csg-card);
+  border: 1px solid var(--csg-card-outline);
+  padding:16px;
+  border-radius:16px;
+  margin-bottom:16px;
+  transition:0.3s;
+  cursor: pointer;
+}
+
+.pageContainer-content__item:hover {
+  transform: scale(1.05);
+  background: var(--csg-card-hover);
+  border: 1px solid #0071b2;
+  padding: 16px;
+  border-radius: 16px;
+  margin-bottom: 16px;
+}
+
+.pageContainer-content__item-title {
+  text-transform: capitalize;
+  font-size:18px;
+  font-weight: bold;
+}
+
+.pageContainer-content__item-desc {
+  font-size: 14px;
+}
+
+.pageContainer-content__item-desc::first-letter {
+  text-transform: capitalize;
+}
