@@ -1,21 +1,35 @@
 <div class="flex justify-center">
-  <div class="w-3xl">
-    <div class="flex justify-center rerumTitle">RERUM STATISTICS</div>
+  <div class="w-3xl pb-10 pt-5">
+
+    <div class="flex justify-center rerumTitle">RERUM CONTENT STATISTICS</div>
+
+    <!-- data loader -->
+    <div id="loaderReport" class="linearLoader mb-5 mt-5">
+      <div class="linearBar"></div>
+    </div>
+
+    <!-- statistic card -->
     <div class="totalRerum">
+      <div class="red">
+        <div>All Post</div>
+        <div id="totalAll" class="title"></div>
+      </div>
       <div class="blue">
-        <div>Total rerum in body</div>
+        <div>Contain rerum in Body</div>
         <div id="totalRerum" class="title"></div>
       </div>
       <div class="green">
-        <div>Total rerum in Title</div>
+        <div>Contain rerum in Title</div>
         <div id="totalRerumTitle" class="title"></div>
       </div>
       <div class="orange">
-        <div>All Rerum</div>
+        <div>In Body or Title</div>
         <div id="totalRerumAll" class="title"></div>
       </div>
 
+    <!-- report table -->
     </div><div class="flex justify-center rerumTitle mt-10">REPORT TABLE</div>
+
     <div id="reportTable"></div>
   </div>
 </div>

@@ -6,11 +6,34 @@ html {
   scroll-behavior: smooth;
 }
 
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #000000;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #2a2a2a;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #156ff6;
+}
+
+
 .csgTitle {
-  font-size:46px;
+  font-size:60px;
   font-weight: 700;
   letter-spacing: -2px;
   line-height: 1;
+}
+
+@media screen and (max-width:960px) {
+  .csgTitle {
+    font-size: 40px;
+  }
 }
 
 .navigation {
@@ -38,6 +61,7 @@ html {
   display: flex;
   justify-content: center;
   padding-bottom:60px;
+  min-height: 100vh;
 }
 
 .appContainer-content {
@@ -57,3 +81,22 @@ html {
       box-shadow: 0px 20px 100px rgba(0, 0, 0, 0.1), -8px 0 20px rgba(0, 0, 0, 0.1);
 }
 
+.csgFooter {
+  width: 100%;
+  height:30px;
+  background: linear-gradient(to right, #0f2a44, #340f2d, #352d0e);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size:12px;
+  letter-spacing: 2px;
+  color: #c4c4c4;
+}
+
+.w-100 {
+  width:100%;
+}
+
+.mw-20 {
+  max-width: 150px;
+}

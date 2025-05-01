@@ -9,6 +9,10 @@ const reportModule = {
       this.countRerumTitle()
       this.countRerumAll()
       this.countTable()
+
+      
+      document.getElementById('totalAll').innerHTML = posts.length
+      document.getElementById("loaderReport").style.display = "none";
       } catch (err) {
         //listEl.innerHTML = "<li>Failed to load posts. Try again later.</li>";
       }

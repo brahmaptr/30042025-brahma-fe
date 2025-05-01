@@ -1,28 +1,50 @@
 <div class="pageContainer">
   <div class="pageContainer-content w-3xl">
 
-    <!-- //-- Search Bar -->
-    <div class="relative max-w-md mx-auto mb-7 mt-4">
-      <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-        <span class="material-icons text-gray-400 text-lg">search</span>
+    <div class="flex">
+      <!-- Search Area -->
+      <div class="relative w-100 mx-auto mb-7 mt-4 mr-3">
+        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+          <span class="material-icons text-gray-400 text-lg">search</span>
+        </div>
+        <input id="mySelect" type="text" placeholder="Search any text here"
+          class="w-full pl-10 pr-4 py-2 rounded-4xl border border-gray-700 bg-gray-800 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition" />
       </div>
-      <input id="mySelect" type="text" placeholder="Search any text here"
-        class="w-full pl-10 pr-4 py-2 rounded-4xl border border-gray-700 bg-gray-800 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition" />
-    </div>
-    
-    <div class="csgPagination">
+
+      <!-- Pagination choice Area -->
+      <div class="relative w-100 max-w-md mx-auto mb-7 mt-4 mw-20">
+        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+          <span class="material-icons text-gray-400 text-lg">view_list</span>
+        </div>
+        <select id="itemsPerPage"
+          class="w-full pl-10 pr-4 py-2 rounded-4xl border border-gray-700 bg-gray-800 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition appearance-none">
+          <option value="5">5 per page</option>
+          <option value="10">10 per page</option>
+          <option value="20">20 per page</option>
+          <option value="50">50 per page</option>
+        </select>
+      </div>
     </div>
 
-    <div id="loader" class="loader-container">
-      <div class="spinner"></div>
-      <div class="mt-2">Loading Data...</div>
+    <!-- Content Loader -->
+    <div id="loader" class="linearLoader">
+      <div class="linearBar"></div>
     </div>
 
-    <ul id="post-list"></ul>
+    <!-- List of filtered post -->
+    <ul id="postList"></ul>
 
+    <!-- Pagination Button -->
     <div class="flex justify-center">
       <div id="pagination"></div>
     </div>
+
+    <!-- Comment Preview -->
+    <div id="dialog" class="dialog">
+      <div id="dialogContent" class="dialogContent"></div>
+    </div>
+
+    
 
   </div>
 </div>

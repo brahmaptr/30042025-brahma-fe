@@ -1,7 +1,8 @@
-import { fetchPosts } from "../../helper/helper.js"; // Import the helper
-import store from "../../store/store.js"; // Assuming you are using a store for the data
+import { fetchPosts } from "../../helper/helper.js";
 
 const postModule = {
+
+  //module state-----------------
   initialPost: [],
   activePost: [],
   pagination: {
@@ -10,33 +11,39 @@ const postModule = {
     content: [],
   },
   searchValue: "",
-  
+
+  //post retrieve-----------------
   async post() {
-    const listEl = document.getElementById("post-list");
-    if (!listEl) return console.error("#post-list container not found");
+    const listEl = document.getElementById("postList");
+    if (!listEl) return console.error("#postList container not found");
 
     try {   
       const posts = await fetchPosts("https://jsonplaceholder.typicode.com/posts");
-      store.setPosts(posts);
+
       this.initialPost = posts;
       this.activePost = posts;
       this.pagination.page = 1;
-      localStorage.initialPost = JSON.stringify(this.initialPost)
 
       this.paginate();
       this.renderPost();
 
       document.getElementById("loader").style.display = "none";
     } catch (err) {
-      listEl.innerHTML = "<li>Failed to load posts. Try again later.</li>";
+      listEl.contentText = "Failed to load posts. Try again later.";
     }
 
     const selectEl = document.getElementById("mySelect");
     if (selectEl) {
       selectEl.addEventListener("input", this.handleChange.bind(this));
     }
-  },
 
+     const itemsPerPage = document.getElementById("itemsPerPage");
+    if (itemsPerPage) {
+      itemsPerPage.addEventListener("input", this.handleChangeItemsPerPage.bind(this));
+    }
+  },
+  
+   //render post list-----------------
   renderPost() {
     const fragment = document.createDocumentFragment();
     const posts = this.pagination.content;
@@ -54,15 +61,20 @@ const postModule = {
 
       li.append(h3, p);
       fragment.appendChild(li);
+       li.addEventListener("click", () => {
+          this.showData(post)
+       });
+      
     });
 
-    const listEl = document.getElementById("post-list");
+    const listEl = document.getElementById("postList");
     listEl.innerHTML = "";
     listEl.appendChild(fragment);
 
     this.renderPaginationControls();
   },
 
+  //calculate pagination--------------
   paginate() {
     const { page, skip } = this.pagination;
     const start = (page - 1) * skip;
@@ -71,6 +83,7 @@ const postModule = {
     this.pagination.content = this.activePost.slice(start, end);
   },
 
+  //highlighting 'rerum' and searched text----------------
   highlightCombined(text) {
     const keywords = ["rerum"];
     if (this.searchValue.length > 1) {
@@ -93,6 +106,7 @@ const postModule = {
     });
   },
 
+  //Pagination control----------------------
   renderPaginationControls() {
     const container = document.getElementById("pagination");
     if (!container) return;
@@ -134,6 +148,7 @@ const postModule = {
     container.appendChild(createButton("NEXT", currentPage + 1, currentPage === totalPages));
   },
 
+  //handle Search------------------------------
   handleChange(event) {
     this.searchValue = event?.target?.value?.toLowerCase() || "";
 
@@ -147,6 +162,77 @@ const postModule = {
     this.pagination.page = 1;
     this.paginate();
     this.renderPost();
+  },
+
+  handleChangeItemsPerPage(event) {
+    this.pagination.page = 1;
+    this.pagination.skip = event.target.value
+    this.paginate();
+    this.renderPost();
+  },
+  
+  
+  //Showing Detail data with comments on post click--------------------------
+  async showData(data) {
+    const dialogEl = document.getElementById('dialog');
+    const dialogContent = document.getElementById('dialogContent');
+
+    
+    dialogContent.textContent = '';
+    
+      const postContainer = document.createElement('div');
+      postContainer.classList.add('post');
+
+      const title = document.createElement('h2');
+      title.classList.add('postTitle');
+      title.textContent = data.title;
+
+      const body = document.createElement('p');
+      body.classList.add('postBody');
+      body.innerHTML = data.body.replace(/\n/g, '<br>');
+      
+      const commentArea = document.createElement('div');
+      commentArea.classList.add('commentArea');
+      commentArea.textContent = 'Comment:'
+      
+      const closeButton = document.createElement('button');
+      closeButton.classList.add('closeButton');
+      closeButton.textContent = 'CLOSE'
+
+      postContainer.appendChild(title);
+      postContainer.appendChild(body);
+      postContainer.appendChild(commentArea);
+      postContainer.appendChild(closeButton);
+
+      dialogContent.appendChild(postContainer);
+
+      dialogEl.style.display = 'flex';
+      // need improvement ------ 
+      try {
+        const res = await fetch(`https://jsonplaceholder.typicode.com/comments?postId=${data.id}`);
+        const comments = await res.json();
+
+        if (comments.length > 0) {
+          commentArea.innerHTML = '<strong>Comments:</strong><br><br>';
+          comments.forEach(comment => {
+            const commentBlock = document.createElement('div');
+            commentBlock.classList.add('comment');
+            commentBlock.innerHTML = `
+              <p><strong>${comment.name}</strong><br> ${comment.email}</p>
+              <p class='commentText'>${comment.body.replace(/\n/g, '<br>')}</p>`;
+            commentArea.appendChild(commentBlock);
+          });
+        } else {
+          commentArea.innerHTML = 'No comments found.';
+        }
+      } catch (error) {
+        commentArea.textContent = 'Failed to load comments.';
+        console.error('Error fetching comments:', error);
+    }
+    
+      closeButton.addEventListener('click', () => {
+        dialogEl.style.display = 'none';
+      });
   },
 };
 
