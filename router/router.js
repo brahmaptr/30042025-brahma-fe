@@ -6,6 +6,9 @@ export const routes = {
 
 export const router = async () => {
   let path = location.hash.slice(1) || "/";
+
+  highlightActiveNav(); 
+  
   if (path === "/") {
     history.replaceState({}, "", "#/post");
     path = "/post";
@@ -51,12 +54,19 @@ export const router = async () => {
     });
 
       // -- Load related JS module
-    if (path === "/post" || path === "/reports") {
+    if (path === "/post") {
       const mod = await import(`../pages/post/post.js?t=${Date.now()}`);
       const postModule = mod.default;
 
       if (typeof postModule.post === "function") {
         postModule.post();
+      }
+    } else if (path === "/reports") {
+      const mod = await import(`../pages/report/report.js?t=${Date.now()}`);
+      const reportModule = mod.default;
+
+      if (typeof reportModule.report === "function") {
+        reportModule.report();
       }
     }
 
@@ -65,3 +75,12 @@ export const router = async () => {
     app.textContent = "Error loading page.";
   }
 };
+
+export const highlightActiveNav = ()=> {
+  const links = document.querySelectorAll(".navigation a");
+  const currentHash = location.hash;
+
+  links.forEach(link => {
+    link.classList.toggle("active", link.getAttribute("href") === currentHash);
+  });
+}

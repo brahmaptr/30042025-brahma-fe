@@ -1,45 +1,46 @@
+import { fetchPosts } from "../../helper/helper.js"; // Import the helper
+import store from "../../store/store.js"; // Assuming you are using a store for the data
+
 const postModule = {
-  initialPost:[],
+  initialPost: [],
   activePost: [],
   pagination: {
     page: 1,
-    skip:5,
-    content:[]
+    skip: 5,
+    content: [],
   },
-  searchValue : '',
+  searchValue: "",
+  
   async post() {
     const listEl = document.getElementById("post-list");
     if (!listEl) return console.error("#post-list container not found");
 
-    try {
-      const res = await fetch("https://jsonplaceholder.typicode.com/posts");
-      if (!res.ok) throw new Error(`HTTP ${res.status}`);
-      const posts = await res.json();
-      
+    try {   
+      const posts = await fetchPosts("https://jsonplaceholder.typicode.com/posts");
+      store.setPosts(posts);
       this.initialPost = posts;
       this.activePost = posts;
       this.pagination.page = 1;
+      localStorage.initialPost = JSON.stringify(this.initialPost)
+
       this.paginate();
       this.renderPost();
 
-      postModule.renderPost()
+      document.getElementById("loader").style.display = "none";
     } catch (err) {
-      console.error("Failed to load posts:", err);
-      
       listEl.innerHTML = "<li>Failed to load posts. Try again later.</li>";
     }
 
     const selectEl = document.getElementById("mySelect");
-
     if (selectEl) {
       selectEl.addEventListener("input", this.handleChange.bind(this));
     }
   },
+
   renderPost() {
     const fragment = document.createDocumentFragment();
-
     const posts = this.pagination.content;
-    posts.forEach(post => {
+    posts.forEach((post) => {
       const li = document.createElement("li");
       li.classList.add("pageContainer-content__item");
 
@@ -61,6 +62,7 @@ const postModule = {
 
     this.renderPaginationControls();
   },
+
   paginate() {
     const { page, skip } = this.pagination;
     const start = (page - 1) * skip;
@@ -69,28 +71,28 @@ const postModule = {
     this.pagination.content = this.activePost.slice(start, end);
   },
 
-
   highlightCombined(text) {
-    const keywords = ['rerum'];
+    const keywords = ["rerum"];
     if (this.searchValue.length > 1) {
-      keywords.push(this.searchValue.toLowerCase()); 
+      keywords.push(this.searchValue.toLowerCase());
     }
 
     const uniqueWords = [...new Set(keywords)].filter(Boolean);
 
     if (uniqueWords.length === 0) return text;
 
-    const regex = new RegExp(`(${uniqueWords.join('|')})`, 'gi');
+    const regex = new RegExp(`(${uniqueWords.join("|")})`, "gi");
 
-    return text.replace(regex, match => {
+    return text.replace(regex, (match) => {
       const lower = match.toLowerCase();
-      if (lower === 'rerum') {
+      if (lower === "rerum") {
         return `<span class="highlight">${match}</span>`;
       } else {
         return `<span class="highlightSearch">${match}</span>`;
       }
     });
   },
+
   renderPaginationControls() {
     const container = document.getElementById("pagination");
     if (!container) return;
@@ -111,8 +113,8 @@ const postModule = {
         this.renderPost();
       };
       return btn;
-      };
-      
+    };
+
     container.appendChild(createButton("PREV", currentPage - 1, currentPage === 1));
 
     for (let i = 1; i <= totalPages; i++) {
@@ -123,8 +125,8 @@ const postModule = {
       ) {
         container.appendChild(createButton(i, i, false, i === currentPage));
       } else if (
-        i === 2 && currentPage > 3 || 
-        i === totalPages - 1 && currentPage < totalPages - 2
+        (i === 2 && currentPage > 3) ||
+        (i === totalPages - 1 && currentPage < totalPages - 2)
       ) {
         container.appendChild(document.createTextNode("..."));
       }
@@ -132,23 +134,20 @@ const postModule = {
     container.appendChild(createButton("NEXT", currentPage + 1, currentPage === totalPages));
   },
 
-
-  
   handleChange(event) {
-    
     this.searchValue = event?.target?.value?.toLowerCase() || "";
 
-    const filtered = this.initialPost.filter(post =>
-      post.title.toLowerCase().includes(this.searchValue) ||
-      post.body.toLowerCase().includes(this.searchValue)
+    const filtered = this.initialPost.filter(
+      (post) =>
+        post.title.toLowerCase().includes(this.searchValue) ||
+        post.body.toLowerCase().includes(this.searchValue)
     );
 
     this.activePost = filtered;
     this.pagination.page = 1;
     this.paginate();
     this.renderPost();
-
-  }
+  },
 };
 
 export default postModule;

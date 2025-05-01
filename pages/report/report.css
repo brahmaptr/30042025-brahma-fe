@@ -1,0 +1,77 @@
+.reportTable {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  border-radius:16px;
+}
+
+.reportTable th,
+.reportTable td {
+  border: transparent solid #ccc;
+  padding: 8px 12px;
+  text-align: center;
+}
+
+.reportTable th {
+  background: rgb(11, 28, 68);
+}
+
+.reportTable tr:nth-child(even) {
+  background-color: #373737;
+}
+
+.reportTable tr:hover {
+  background-color: rgb(0, 0, 0);
+}
+
+
+.totalRerum {
+  display:flex;
+  justify-content: center;
+  flex-flow: row wrap;
+  gap: 16px;
+  transition: 0.3s;
+}
+.totalRerum >  div {
+    flex-basis: 30%;
+    min-width: 150px;
+    width:100%;
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #00c6ff, #0072ff);
+    width: 100%;
+    margin-top: 16px;
+    border-radius: 16px;
+    height: 150px;
+    color: #fff;
+}
+
+.totalRerum .blue {
+  background: linear-gradient(135deg, #00c6ff, #0072ff);
+}
+
+.totalRerum .green {
+  background: linear-gradient(135deg, #00ff99, #007f4f);
+}
+
+.totalRerum .orange {
+  background: linear-gradient(135deg, #ffb347, #ff7f50);
+}
+
+.totalRerum>div .title {
+  font-size: 60px;
+  line-height:1;
+}
+
+.totalRerum:hover {
+  transform: scale(1.05);
+}
+
+.rerumTitle {
+  font-weight: bold;
+  letter-spacing: 2px;
+}

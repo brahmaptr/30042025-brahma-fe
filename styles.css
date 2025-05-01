@@ -1,5 +1,6 @@
 
 @import url("pages/post/post.css");
+@import url("pages/report/report.css");
 
 html {
   scroll-behavior: smooth;
@@ -9,15 +10,50 @@ html {
   font-size:46px;
   font-weight: 700;
   letter-spacing: -2px;
+  line-height: 1;
+}
+
+.navigation {
+  margin:20px 0;
+}
+
+.navigation a {
+  padding:10px 20px;
+  transition: 0.3s;
+  border-bottom: 2px solid transparent;
+}
+
+.navigation a.active {
+  border-bottom: 2px solid #ffcc00;
 }
 
 .csgTitle-span {
   background: linear-gradient(to right, #379bff, #ff4bde, #ffcc00);
-  /* Your gradient colors */
   -webkit-background-clip: text;
-  /* Clip the background to the text */
   color: transparent;
-  /* Make the text itself transparent to show the gradient */
   font-weight: bold;
-  /* Optional: make the text bold */
 }
+
+.appContainer {
+  display: flex;
+  justify-content: center;
+  padding-bottom:60px;
+}
+
+.appContainer-content {
+  background-color: #212121;
+  width:100%;
+  max-width: 1200px;
+  padding:16px;
+  border-radius:16px;
+}
+
+.glow-box {
+      color: white;
+      border-radius: 8px;
+}
+
+.glow-box:hover {
+      box-shadow: 0px 20px 100px rgba(0, 0, 0, 0.1), -8px 0 20px rgba(0, 0, 0, 0.1);
+}
+

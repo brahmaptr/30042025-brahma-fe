@@ -1,8 +1,8 @@
-<div class="pageContainer px-5">
+<div class="pageContainer">
   <div class="pageContainer-content w-3xl">
 
     <!-- //-- Search Bar -->
-    <div class="relative max-w-md mx-auto mb-10">
+    <div class="relative max-w-md mx-auto mb-7 mt-4">
       <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
         <span class="material-icons text-gray-400 text-lg">search</span>
       </div>
@@ -13,12 +13,17 @@
     <div class="csgPagination">
     </div>
 
+    <div id="loader" class="loader-container">
+      <div class="spinner"></div>
+      <div class="mt-2">Loading Data...</div>
+    </div>
+
     <ul id="post-list"></ul>
 
     <div class="flex justify-center">
       <div id="pagination"></div>
     </div>
-    
+
   </div>
 </div>
 
