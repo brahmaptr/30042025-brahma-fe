@@ -56,7 +56,6 @@
     align-items: center;
 }
 
-/* Desktop: 50% width */
 @media screen and (max-width: 960px) {
   .totalRerum-item {
     width: 45%;

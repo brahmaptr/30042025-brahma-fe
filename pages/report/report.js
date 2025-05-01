@@ -1,4 +1,5 @@
-import { fetchPosts } from "../../helper/helper.js"; // Import the helper
+import { fetchPosts } from "../../helper/helper.js";
+
 const reportModule = {
   reportPost:[],
   async report() {
