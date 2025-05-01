@@ -114,6 +114,16 @@ const postModule = {
     const totalPages = Math.ceil(this.activePost.length / this.pagination.skip);
     const currentPage = this.pagination.page;
 
+    const dataNotFound = document.getElementById('dataNotFound')
+
+    if (totalPages === 0) {
+      container.style.display = 'none'
+      dataNotFound.textContent = `Data not found.`
+    } else {
+      container.style.display = 'flex'
+      dataNotFound.textContent = ''
+    }
+
     container.innerHTML = "";
 
     const createButton = (text, page, disabled = false, isActive = false) => {
@@ -152,6 +162,13 @@ const postModule = {
   handleChange(event) {
     this.searchValue = event?.target?.value?.toLowerCase() || "";
 
+    const searchText = document.getElementById('searchText')
+    searchText.innerHTML = 'Showing results for - <b>' + this.searchValue + ':</b>'
+
+    if (this.searchValue === '') {
+      searchText.textContent = ''
+    }
+    
     const filtered = this.initialPost.filter(
       (post) =>
         post.title.toLowerCase().includes(this.searchValue) ||

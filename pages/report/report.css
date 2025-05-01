@@ -1,40 +1,70 @@
 
 :root {
-  --statistic-blue : linear-gradient(135deg, #00c6ff, #0072ff);
-  --statistic-green:linear-gradient(135deg, #00ff99, #007f4f);
-  --statistic-red:linear-gradient(135deg, #ff85d8, #ff007f);
-  --statistic-orange:linear-gradient(135deg, #ffb347, #ff7f50);
+  --statistic-blue : #71b1ff;
+  --statistic-green: #30b381;
+  --statistic-red: #ff4ca5;
+  --statistic-orange:#ffad8f;
 }
 
 .totalRerum .blue {
-  background: var(--statistic-blue);
+  border: 2px solid var(--statistic-blue);
+  color: var(--statistic-blue);
+}
+
+.totalRerum .blue:hover {
+  background-color:var(--statistic-blue);
+  color: #fff;
 }
 
 .totalRerum .green {
-  background: var(--statistic-green);
+  border: 2px solid var(--statistic-green);
+  color: var(--statistic-green);
+}
+
+.totalRerum .green:hover {
+  background-color: var(--statistic-green);
+  color: #fff;
 }
 
 .totalRerum .red {
-  background: var(--statistic-red);
+  border: 2px solid var(--statistic-red);
+  color: var(--statistic-red);
+}
+
+.totalRerum .red:hover {
+  background-color: var(--statistic-red);
+  color: #fff;
 }
 
 .totalRerum .orange {
-  background: var(--statistic-orange);
+  border: 2px solid var(--statistic-orange);
+  color: var(--statistic-orange);
 }
 
-.totalRerum > div {
-  background: var(--statistic-blue);
-  display: flex;
-  flex-flow: column;
-  justify-content: center;
-   align-items: center;
-  flex-basis: 40%;
-  min-width: 200px;
-  width: 100%;
-  margin-top: 16px;
-  border-radius: 16px;
-  height: 150px;
+.totalRerum .orange:hover {
+  background-color: var(--statistic-orange);
   color: #fff;
+}
+
+.totalRerum-item {
+    width: 45%;
+    padding: 10px;
+    box-sizing: border-box;
+    transition: 0.3s;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+}
+
+/* Desktop: 50% width */
+@media screen and (max-width: 960px) {
+  .totalRerum-item {
+    width: 45%;
+  }
+  .totalRerum-item__text {
+    font-size:10px;
+    line-height: 1;
+  }
 }
 
 .totalRerum > div .title {
@@ -42,22 +72,17 @@
   line-height: 1;
 }
 
-.totalRerum > div:hover {
-  transform: scale(1.05);
-  transition: 0.3s;
-}
-
 .rerumTitle {
   font-weight: bold;
   letter-spacing: 2px;
 }
+
 .reportTable {
-  width: 100%;
   border-collapse: separate;
   border-spacing: 0;
   margin-top: 1rem;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  font-size: 18px;
+  font-size: 16px;
   border-radius: 16px;
   overflow: hidden;
   box-shadow: 0 0 20px rgba(0, 255, 255, 0.05);
@@ -67,7 +92,7 @@
 
 .reportTable th,
 .reportTable td {
-  padding: 16px;
+  padding:10px 0 ;
   text-align: center;
   transition: background 0.3s ease, color 0.3s ease;
 }
@@ -76,8 +101,8 @@
   background-color: #0f2027;
   color: #ffffff;
   text-transform: uppercase;
-  letter-spacing: 1px;
-  font-weight: bold;
+  font-size:10px;
+  padding:16px
 }
 
 .reportTable tr {
@@ -99,9 +124,25 @@
   display:flex;
   justify-content: center;
   flex-flow: row wrap;
-  gap: 16px;
+  gap:10px;
   transition: 0.3s;
   width: 100%;
+}
+
+.tableWrapper {
+  background-color: rgb(163, 212, 233);
+  padding: 20px 0;
+  border-radius: 16px;
+  color: #0f2027;
+}
+
+@media screen and (max-width:768px) {
+  .tableWrapper {
+      background-color: transparent;
+      color:#fff;
+      padding: 0;
+      border-radius: 16px;
+    }
 }
 
 .linearLoader {

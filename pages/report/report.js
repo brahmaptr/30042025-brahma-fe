@@ -14,7 +14,7 @@ const reportModule = {
       document.getElementById('totalAll').innerHTML = posts.length
       document.getElementById("loaderReport").style.display = "none";
       } catch (err) {
-        //listEl.innerHTML = "<li>Failed to load posts. Try again later.</li>";
+        listEl.innerHTML = "<li>Failed to load posts. Try again later.</li>";
       }
   },
   countRerum() {
@@ -35,45 +35,63 @@ const reportModule = {
     document.getElementById('totalRerumAll').innerHTML = count;
     console.log(count);
   },
-  countTable() {
+  async countTable() {
       const reportTableContainer = document.getElementById("reportTable");
 
+      // -- Create post counts by user
       const postCountsByUser = this.reportPost.reduce((acc, post) => {
         acc[post.userId] = (acc[post.userId] || 0) + 1;
         return acc;
       }, {});
 
+      // -- Fetch users
+      let users = [];
+      try {
+        const response = await fetch("https://jsonplaceholder.typicode.com/users");
+        if (!response.ok) throw new Error("Failed to fetch users");
+        users = await response.json();
+      } catch (err) {
+        console.error("User fetch error:", err);
+      }
+
+      // -- Map userId to userName
+      const userMap = {};
+      users.forEach(user => {
+        userMap[user.id] = user.name;
+      });
+
+      // -- Build table data
       const tableData = Object.entries(postCountsByUser).map(([userId, postCount]) => ({
         userId,
+        userName: userMap[userId] || "Unknown",
         postCount
       }));
 
-      // -- Create the table element
+      // -- Create the table
       const table = document.createElement("table");
-      table.className = "reportTable"; // Optional: for CSS styling
+      table.className = "reportTable";
 
-      // -- Create table header
+      // -- Table headers
       const headerRow = table.insertRow();
-      ["User ID", "Post Count"].forEach(headerText => {
+      ["User ID", "User Name", "Post Count"].forEach(text => {
         const th = document.createElement("th");
-        th.textContent = headerText;
+        th.textContent = text;
         headerRow.appendChild(th);
       });
 
-      // -- Insert data rows
+      // -- Table rows
       tableData.forEach(row => {
         const tr = table.insertRow();
-        const tdUserId = tr.insertCell();
-        tdUserId.textContent = row.userId;
-        const tdPostCount = tr.insertCell();
-        tdPostCount.textContent = row.postCount;
+        tr.insertCell().textContent = row.userId;
+        tr.insertCell().textContent = row.userName;
+        tr.insertCell().textContent = row.postCount;
       });
 
-      // -- Append table to container
+      // -- Append to container
       reportTableContainer.innerHTML = "";
       reportTableContainer.appendChild(table);
+    }
 
-  }
 };
 
 export default reportModule;
